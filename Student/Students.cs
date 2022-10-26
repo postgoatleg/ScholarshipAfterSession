@@ -18,6 +18,10 @@
         }
         public static double AvrgMark(Students[] students, int len)
         {
+            if (len == 0)
+            {
+                return 0;
+            }
             double sum = 0;
             int i;
             for (i = 0; i < len; i++)

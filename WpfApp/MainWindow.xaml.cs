@@ -108,7 +108,18 @@ namespace WpfApp
 
         private void avgMarkButton_Click(object sender, RoutedEventArgs e)
         {
-            avgMarkLabel.Content = $"Average mark - {(Students.AvrgMark(budgetStudents, budgetLen)+ Students.AvrgMark(paidStudents, paidLen))/2}";
+            double part1 = Students.AvrgMark(budgetStudents, budgetLen);
+            double part2 = Students.AvrgMark(paidStudents, paidLen);
+            double final=0;
+            if (part1 == 0|| part2 == 0)
+            {
+                final = part1 + part2;
+            }
+            else
+            {
+                final = (part1 + part2) / 2;
+            }
+            avgMarkLabel.Content = $"Average mark - {final}";
         }
 
         private void deleteStudentButton_Click(object sender, RoutedEventArgs e)
