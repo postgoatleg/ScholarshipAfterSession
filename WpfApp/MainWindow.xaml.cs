@@ -34,11 +34,54 @@ namespace WpfApp
 
         }
 
-        private void studentListComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Edit_Button_Click(object sender, RoutedEventArgs e)
         {
+            editButton.IsEnabled = false;
+            addButton.IsEnabled = true;
+            studentListComboBox.IsEnabled = true;
+            EducationTypeComboBox.IsEnabled = true;
+            string name = NameTextBox.Text;
+            int educationType = EducationTypeComboBox.SelectedIndex;
+            int mark = Convert.ToInt32(MarkTextBox.Text);
+            bool onTime = onTimeCheckBox.IsChecked == true;
+            if (educationType == 1)
+            {
+                budgetStudents[studentListComboBox.SelectedIndex] = new BudgetStudents(name, mark, onTime);
+            }
+            else
+            {
+                paidStudents[studentListComboBox.SelectedIndex - budgetLen] = new PaidStudents(name, mark, onTime);
+            }
+            RefillComboBox();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string name = NameTextBox.Text;
+            int educationType = EducationTypeComboBox.SelectedIndex;
+            int mark = Convert.ToInt32(MarkTextBox.Text);
+            bool onTime = onTimeCheckBox.IsChecked == true;
+            if(educationType == 1)
+            {
+                budgetStudents[budgetLen] = new BudgetStudents(name, mark, onTime);
+                budgetLen++;
+            }
+            else
+            {
+                paidStudents[paidLen] = new PaidStudents(name, mark, onTime);
+                paidLen++;
+            }
+            RefillComboBox();
+        }
+
+        private void chooseStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            editButton.IsEnabled = true;
+            addButton.IsEnabled = false;
+            studentListComboBox.IsEnabled = false;
             EducationTypeComboBox.IsEnabled = false;
             int slctdInd = studentListComboBox.SelectedIndex;
-            if (slctdInd <= budgetLen)
+            if (slctdInd < budgetLen)
             {
                 NameTextBox.Text = budgetStudents[slctdInd].fullName;
                 EducationTypeComboBox.SelectedIndex = 1;
@@ -51,39 +94,59 @@ namespace WpfApp
                 EducationTypeComboBox.SelectedIndex = 0;
                 MarkTextBox.Text = paidStudents[slctdInd].mark.ToString();
             }
-            //slctdInd = slctdInd <= budgetLen ? slctdInd : slctdInd - budgetLen;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            string name = NameTextBox.Text;
-            int educationType = EducationTypeComboBox.SelectedIndex;
-            int mark = Convert.ToInt32(MarkTextBox.Text);
-            bool onTime = onTimeCheckBox.IsChecked == true;
-            if(educationType == 1)
+            paidSubmitOnTimeLabel.Content = PaidStudents.SubmitedOnTimeString(paidStudents, paidLen);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            avgSchoolarshipLabel.Content = $"Average scolarship - {BudgetStudents.AvrgScholarship(budgetStudents, budgetLen)}";
+        }
+
+        private void avgMarkButton_Click(object sender, RoutedEventArgs e)
+        {
+            avgMarkLabel.Content = $"Average mark - {(Students.AvrgMark(budgetStudents, budgetLen)+ Students.AvrgMark(paidStudents, paidLen))/2}";
+        }
+
+        private void deleteStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            int slctdInd = studentListComboBox.SelectedIndex;
+            if (slctdInd < budgetLen)
             {
-                budgetStudents[budgetLen] = new BudgetStudents(name, mark, onTime);
-                StudentsLabel.Content = budgetStudents[budgetLen].GetDataInString();
-                
-                budgetLen++;
+                for(int i = slctdInd; i < budgetLen-1; i++)
+                {
+                    budgetStudents[i] = budgetStudents[i+1];
+                }
+                budgetLen--;
             }
             else
             {
-                paidStudents[paidLen] = new PaidStudents(name, mark, onTime);
-                paidLen++;
+                for (int i = slctdInd-budgetLen; i < paidLen - 1; i++)
+                {
+                    paidStudents[i] = paidStudents[i + 1];
+                }
+                paidLen--;
             }
+            RefillComboBox();
+        }
+
+        private void RefillComboBox()
+        {
             studentListComboBox.Items.Clear();
-            for (int i = 0; i < budgetLen+paidLen; i++)
+            for (int i = 0; i < budgetLen + paidLen; i++)
             {
-                if(i<budgetLen)
+                if (i < budgetLen)
                 {
                     studentListComboBox.Items.Add(budgetStudents[i].GetDataInString());
                 }
                 else
                 {
-                    studentListComboBox.Items.Add(paidStudents[i-budgetLen].GetDataInString());
+                    studentListComboBox.Items.Add(paidStudents[i - budgetLen].GetDataInString());
                 }
-                    
+
             }
         }
     }

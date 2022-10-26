@@ -19,14 +19,22 @@
             <TextBlock>Paid</TextBlock>
             <TextBlock>Budget</TextBlock>
         </ComboBox>
-        <Button Content="Add student" HorizontalAlignment="Left" Margin="10,238,0,0" VerticalAlignment="Top" Height="29" Width="120" Click="Button_Click" FontSize="16"/>
-        <ScrollViewer Margin="150,46,853,433">
+        <Button x:Name="addButton" Content="Add student" HorizontalAlignment="Left" Margin="10,238,0,0" VerticalAlignment="Top" Height="29" Width="120" Click="Button_Click" FontSize="16"/>
+        <ComboBox x:Name="studentListComboBox" HorizontalAlignment="Left" Margin="177,66,0,0" VerticalAlignment="Top" Width="123" Height="29"/>
+        <CheckBox x:Name="onTimeCheckBox" Content="Passed on time" HorizontalAlignment="Left" Margin="14,211,0,0" VerticalAlignment="Top"/>
+        <Label Content="Choose student&#xD;&#xA;for editing:" Margin="177,5,955,618" RenderTransformOrigin="0.521,0.575" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="editButton" Content="Edit student" HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Height="29" Width="120" Click="Edit_Button_Click" FontSize="16" IsEnabled="False"/>
+        <Button x:Name="chooseStudentButton" Content="Choose" HorizontalAlignment="Left" Margin="177,114,0,0" VerticalAlignment="Top" Width="123" Height="30" FontSize="16" Click="chooseStudentButton_Click"/>
+        <ScrollViewer Margin="14,444,989,35">
             <StackPanel>
-                <Label x:Name="StudentsLabel"></Label>
+                <Label x:Name="paidSubmitOnTimeLabel"/>
             </StackPanel>
         </ScrollViewer>
-        <ComboBox x:Name="studentListComboBox" HorizontalAlignment="Left" Margin="472,65,0,0" VerticalAlignment="Top" Width="123" SelectionChanged="studentListComboBox_SelectionChanged"/>
-        <CheckBox x:Name="onTimeCheckBox" Content="Passed on time" HorizontalAlignment="Left" Margin="14,211,0,0" VerticalAlignment="Top"/>
-        <Label Content="Choose student&#xD;&#xA;for editing:" Margin="466,10,666,613" RenderTransformOrigin="0.521,0.575" FontSize="16" FontWeight="Bold"/>
+        <Button Content="Paid Students, submitted&#xD;&#xA; session on time" HorizontalAlignment="Left" Margin="10,369,0,0" VerticalAlignment="Top" Height="50" Width="281" FontSize="16" Click="Button_Click_1"/>
+        <Button Content="Show" HorizontalAlignment="Left" Margin="330,52,0,0" VerticalAlignment="Top" Height="30" Width="139" FontSize="16" Click="Button_Click_2"/>
+        <Label x:Name="avgSchoolarshipLabel" Content="Average scolarship - " HorizontalAlignment="Left" Margin="330,12,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Button x:Name="avgMarkButton" Content="Show" HorizontalAlignment="Left" Margin="525,52,0,0" VerticalAlignment="Top" Height="30" Width="139" FontSize="16" Click="avgMarkButton_Click"/>
+        <Label x:Name="avgMarkLabel" Content="Average mark - " HorizontalAlignment="Left" Margin="525,12,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Button x:Name="deleteStudentButton" Content="Delete" HorizontalAlignment="Left" Margin="177,159,0,0" VerticalAlignment="Top" Width="123" Height="30" FontSize="16" Click="deleteStudentButton_Click" Foreground="#FFB50000" FontWeight="Bold"/>
     </Grid>
 </Window>

@@ -7,7 +7,7 @@ namespace PaidStudent
         {
         }
 
-        public static string AvrgScholarship(PaidStudents[] paidStudents, int len)
+        public static string SubmitedOnTimeString(PaidStudents[] paidStudents, int len)
         {
             string sum = "";
             int i;
